@@ -1,13 +1,9 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/Ze-Victor/search-zip-code/router"
+)
 
 func main() {
-	r := gin.Default()
-	r.GET("/test", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "test connection",
-		})
-	})
-	r.Run(":8001")
+	router.Initialize()
 }
