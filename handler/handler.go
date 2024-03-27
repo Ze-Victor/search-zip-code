@@ -17,12 +17,12 @@ func SearchAddressByCEP(ctx *gin.Context) {
 		return
 	}
 
-	endereco := Endereco{
-		Rua:    "Rua Exemplo",
-		Bairro: "Bairro Exemplo",
-		Cidade: "Cidade Exemplo",
-		Estado: "Estado Exemplo",
+	address := Address{
+		Street:       "Example street",
+		Neighborhood: "Example neighborhood",
+		City:         "Example city",
+		State:        "Example state",
 	}
 
-	ctx.JSON(http.StatusOK, endereco)
+	ctx.JSON(http.StatusOK, address)
 }

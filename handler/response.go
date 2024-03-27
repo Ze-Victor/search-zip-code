@@ -2,11 +2,11 @@ package handler
 
 import "github.com/gin-gonic/gin"
 
-type Endereco struct {
-	Rua    string
-	Bairro string
-	Cidade string
-	Estado string
+type Address struct {
+	Street       string
+	Neighborhood string
+	City         string
+	State        string
 }
 
 func sendError(ctx *gin.Context, code int, msg string) {
