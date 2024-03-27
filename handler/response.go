@@ -3,6 +3,7 @@ package handler
 import "github.com/gin-gonic/gin"
 
 type Address struct {
+	CEP          string
 	Street       string
 	Neighborhood string
 	City         string

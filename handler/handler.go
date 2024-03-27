@@ -1,8 +1,9 @@
 package handler
 
 import (
-	"fmt"
+	"encoding/json"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,16 +13,27 @@ func SearchAddressByCEP(ctx *gin.Context) {
 	ctx.BindJSON(&request)
 
 	if err := request.Validate(); err != nil {
-		err = fmt.Errorf("validation error: %v", err.Error())
 		sendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	address := Address{
-		Street:       "Example street",
-		Neighborhood: "Example neighborhood",
-		City:         "Example city",
-		State:        "Example state",
+	fileData, err := os.ReadFile("./db/ceps.json")
+	if err != nil {
+		sendError(ctx, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	var ceps []Address
+
+	err = json.Unmarshal(fileData, &ceps)
+	if err != nil {
+		sendError(ctx, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	address, err := searchCEP(request.CEP, ceps)
+	if err != nil {
+		return
 	}
 
 	ctx.JSON(http.StatusOK, address)
