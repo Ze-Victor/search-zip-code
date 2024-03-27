@@ -8,5 +8,13 @@ func searchCEP(cep string, ceps []Address) (Address, error) {
 			return c, nil
 		}
 	}
+
+	for i := len(cep) - 1; i >= 0; i-- {
+		if cep[i] != '0' {
+			cep = cep[:i] + "0" + cep[i+1:]
+			return searchCEP(cep, ceps)
+		}
+	}
+
 	return Address{}, fmt.Errorf("CEP %s not found", cep)
 }

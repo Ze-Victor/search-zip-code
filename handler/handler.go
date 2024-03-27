@@ -33,8 +33,12 @@ func SearchAddressByCEP(ctx *gin.Context) {
 
 	address, err := searchCEP(request.CEP, ceps)
 	if err != nil {
+		if address == (Address{}) {
+			sendError(ctx, http.StatusNotFound, err.Error())
+		} else {
+			sendError(ctx, http.StatusInternalServerError, err.Error())
+		}
 		return
 	}
-
 	ctx.JSON(http.StatusOK, address)
 }
