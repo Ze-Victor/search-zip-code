@@ -9,7 +9,7 @@ import (
 )
 
 func SearchAddressByCEP(ctx *gin.Context) {
-	request := SearchCEP{}
+	request := CEP{}
 	ctx.BindJSON(&request)
 
 	if err := request.Validate(); err != nil {
@@ -17,7 +17,9 @@ func SearchAddressByCEP(ctx *gin.Context) {
 		return
 	}
 
-	fileData, err := os.ReadFile("./db/ceps.json")
+	filePath := "../db/ceps.json"
+
+	fileData, err := os.ReadFile(filePath)
 	if err != nil {
 		sendError(ctx, http.StatusInternalServerError, err.Error())
 		return

@@ -1,11 +1,11 @@
-package handler
+package utils
 
 import (
 	"fmt"
 	"strconv"
 )
 
-func validateCEPFormat(cep string) error {
+func ValidateCEPFormat(cep string) error {
 	if len(cep) != 8 {
 		return fmt.Errorf("CEP must have 8 digits")
 	}
