@@ -1,6 +1,10 @@
 package handler
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 type Address struct {
 	CEP          string
@@ -16,4 +20,9 @@ func sendError(ctx *gin.Context, code int, msg string) {
 		"message":   msg,
 		"errorCode": code,
 	})
+}
+
+func sendSucess(ctx *gin.Context, address Address) {
+	ctx.Header("Content-type", "application/json")
+	ctx.JSON(http.StatusOK, address)
 }
