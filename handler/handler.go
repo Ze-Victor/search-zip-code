@@ -40,5 +40,5 @@ func SearchAddressByCEP(ctx *gin.Context) {
 		}
 		return
 	}
-	ctx.JSON(http.StatusOK, address)
+	sendSucess(ctx, address)
 }
