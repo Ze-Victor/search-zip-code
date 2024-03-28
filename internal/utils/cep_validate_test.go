@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestValidateCEPFormat(t *testing.T) {
+func TestValidateCEP(t *testing.T) {
 	tests := []struct {
 		name      string
 		cep       string
@@ -19,7 +19,7 @@ func TestValidateCEPFormat(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := ValidateCEPFormat(tt.cep)
+			err := ValidateCEP(tt.cep)
 			if tt.expectErr && err == nil {
 				t.Errorf("Expected error, but got none for test case: %s", tt.name)
 			}

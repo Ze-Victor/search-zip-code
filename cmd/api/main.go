@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Ze-Victor/search-zip-code/handler"
+	"github.com/Ze-Victor/search-zip-code/internal/pkg"
 	"github.com/gin-gonic/gin"
 )
 
@@ -10,7 +10,7 @@ func main() {
 	apiV1 := router.Group("/api/v1")
 
 	//Routes
-	apiV1.GET("/cep", handler.SearchAddressByCEP)
+	apiV1.GET("/cep", pkg.SearchAddressByCEP)
 
 	router.Run(":8001")
 }

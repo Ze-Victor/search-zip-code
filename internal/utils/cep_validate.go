@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-func ValidateCEPFormat(cep string) error {
+func ValidateCEP(cep string) error {
 	if len(cep) != 8 {
 		return fmt.Errorf("CEP must have 8 digits")
 	}

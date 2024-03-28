@@ -1,9 +1,9 @@
-package handler
+package pkg
 
 import (
 	"fmt"
 
-	"github.com/Ze-Victor/search-zip-code/utils"
+	"github.com/Ze-Victor/search-zip-code/internal/utils"
 )
 
 type CEP struct {
@@ -19,7 +19,7 @@ func (r *CEP) Validate() error {
 		return errParamIsRequired("cep", "string")
 	}
 
-	if err := utils.ValidateCEPFormat(r.CEP); err != nil {
+	if err := utils.ValidateCEP(r.CEP); err != nil {
 		return err
 	}
 

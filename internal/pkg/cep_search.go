@@ -1,6 +1,8 @@
-package handler
+package pkg
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func searchCEP(cep string, ceps []Address) (Address, error) {
 	for _, c := range ceps {
