@@ -17,9 +17,7 @@ func SearchAddressByCEP(ctx *gin.Context) {
 		return
 	}
 
-	filePath := "../db/ceps.json"
-
-	fileData, err := os.ReadFile(filePath)
+	fileData, err := os.ReadFile("../../db/ceps.json")
 	if err != nil {
 		sendError(ctx, http.StatusInternalServerError, err.Error())
 		return
