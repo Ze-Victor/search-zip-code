@@ -17,7 +17,7 @@ func SearchCEP(ctx *gin.Context) {
 		return
 	}
 
-	fileData, err := os.ReadFile("../../db/ceps.json")
+	fileData, err := os.ReadFile("../../internal/db/ceps.json")
 	if err != nil {
 		sendError(ctx, http.StatusInternalServerError, err.Error())
 		return
