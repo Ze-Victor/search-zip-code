@@ -10,7 +10,7 @@ func main() {
 	apiV1 := router.Group("/api/v1")
 
 	//Routes
-	apiV1.GET("/cep", pkg.SearchAddressByCEP)
+	apiV1.GET("/cep", pkg.SearchCEP)
 
 	router.Run(":8001")
 }

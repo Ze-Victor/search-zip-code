@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SearchAddressByCEP(ctx *gin.Context) {
+func SearchCEP(ctx *gin.Context) {
 	request := CEP{}
 	ctx.BindJSON(&request)
 
@@ -31,7 +31,7 @@ func SearchAddressByCEP(ctx *gin.Context) {
 		return
 	}
 
-	address, err := searchCEP(request.CEP, ceps)
+	address, err := SearchAddressByCEP(request.CEP, ceps)
 	if err != nil {
 		if address == (Address{}) {
 			sendError(ctx, http.StatusNotFound, err.Error())

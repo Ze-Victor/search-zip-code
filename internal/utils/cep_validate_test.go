@@ -11,10 +11,10 @@ func TestValidateCEP(t *testing.T) {
 		expectErr bool
 	}{
 		{"Valid CEP", "12345678", false},
-		{"Invalid CEP - Less than 8 digits", "1234567", true},
-		{"Invalid CEP - More than 8 digits", "123456789", true},
-		{"Invalid CEP - Contains letters", "1234abc6", true},
-		{"Invalid CEP - Empty string", "", true},
+		{"Invalid CEP Less than 8 digits", "1234567", true},
+		{"Invalid CEP More than 8 digits", "123456789", true},
+		{"Invalid CEP Contains letters", "1234abc6", true},
+		{"Invalid CEP Empty string", "", true},
 	}
 
 	for _, tt := range tests {

@@ -28,7 +28,7 @@ var mockCEPs = []Address{
 	},
 }
 
-func TestSearchCEP(t *testing.T) {
+func TestSearchAddressByCEP(t *testing.T) {
 	tests := []struct {
 		name     string
 		cep      string
@@ -53,14 +53,13 @@ func TestSearchCEP(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			address, err := searchCEP(tt.cep, mockCEPs)
+			address, err := SearchAddressByCEP(tt.cep, mockCEPs)
 			if err != nil && tt.expected != (Address{}) {
 				t.Errorf("Unexpected error: %v", err)
 			}
 			if address != tt.expected {
-				t.Errorf("searchCEP(%s) = %v, want %v", tt.cep, address, tt.expected)
+				t.Errorf("SearchAddressByCEP(%s) = %v, want %v", tt.cep, address, tt.expected)
 			}
-			t.Logf("Test case: %s passed", tt.name)
 		})
 
 	}
