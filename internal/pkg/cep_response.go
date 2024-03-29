@@ -24,5 +24,18 @@ func sendError(ctx *gin.Context, code int, msg string) {
 
 func sendSucess(ctx *gin.Context, address Address) {
 	ctx.Header("Content-type", "application/json")
-	ctx.JSON(http.StatusOK, address)
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "Endereço localizado",
+		"data":    address,
+	})
+}
+
+type sendSuccessResponse struct {
+	Message string  `json:"message"`
+	Data    Address `json:"data"`
+}
+
+type sendErrorResponse struct {
+	Message   string `json:"message"`
+	ErrorCode string `json:"errorCode"`
 }

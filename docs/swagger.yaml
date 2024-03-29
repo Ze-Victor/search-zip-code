@@ -1,0 +1,70 @@
+definitions:
+  pkg.Address:
+    properties:
+      cep:
+        type: string
+      city:
+        type: string
+      neighborhood:
+        type: string
+      state:
+        type: string
+      street:
+        type: string
+    type: object
+  pkg.CEP:
+    properties:
+      cep:
+        type: string
+    type: object
+  pkg.sendErrorResponse:
+    properties:
+      errorCode:
+        type: string
+      message:
+        type: string
+    type: object
+  pkg.sendSuccessResponse:
+    properties:
+      data:
+        $ref: '#/definitions/pkg.Address'
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /cep:
+    get:
+      consumes:
+      - application/json
+      description: Search Address by CEP
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/pkg.CEP'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pkg.sendSuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pkg.sendErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/pkg.sendErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/pkg.sendErrorResponse'
+      tags:
+      - CEP
+swagger: "2.0"
