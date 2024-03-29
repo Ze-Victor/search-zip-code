@@ -4,20 +4,45 @@ import (
 	"encoding/json"
 	"net/http"
 	"os"
+	"path/filepath"
 
 	"github.com/gin-gonic/gin"
 )
 
-func SearchCEP(ctx *gin.Context) {
+// @BasePath /api/v1
+// @Sumary Search CEP
+// @Description Search Address by CEP
+// @Tags CEP
+// @Accept json
+// @Produce json
+// @Param request body CEP true "Request body"
+// @Success 200 {object} sendSuccessResponse
+// @Failure 400 {object} sendErrorResponse
+// @Failure 404 {object} sendErrorResponse
+// @Failure 500 {object} sendErrorResponse
+// @Router /cep [get]
+func SearchCEPHandler(ctx *gin.Context) {
 	request := CEP{}
-	ctx.BindJSON(&request)
+	err := ctx.BindJSON(&request)
+	if err != nil {
+		sendError(ctx, http.StatusInternalServerError, err.Error())
+		return
+	}
 
 	if err := request.Validate(); err != nil {
 		sendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	fileData, err := os.ReadFile("../../internal/db/ceps.json")
+	dir, err := os.Getwd()
+	if err != nil {
+		sendError(ctx, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	filePath := filepath.Join(dir, "internal", "db", "ceps.json")
+
+	fileData, err := os.ReadFile(filePath)
 	if err != nil {
 		sendError(ctx, http.StatusInternalServerError, err.Error())
 		return
