@@ -10,7 +10,7 @@ run:
 build:
 	@go build -o $(APP_NAME) cmd/api/main.go
 
-test_unity:
+test:
 	@cd internal/pkg && go test -v
 	@cd internal/util && go test -v
 
