@@ -1,4 +1,4 @@
-package handler
+package pkg
 
 import (
 	"encoding/json"
@@ -8,8 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SearchAddressByCEP(ctx *gin.Context) {
-	request := SearchCEP{}
+func SearchCEP(ctx *gin.Context) {
+	request := CEP{}
 	ctx.BindJSON(&request)
 
 	if err := request.Validate(); err != nil {
@@ -17,7 +17,7 @@ func SearchAddressByCEP(ctx *gin.Context) {
 		return
 	}
 
-	fileData, err := os.ReadFile("./db/ceps.json")
+	fileData, err := os.ReadFile("../../internal/db/ceps.json")
 	if err != nil {
 		sendError(ctx, http.StatusInternalServerError, err.Error())
 		return
@@ -31,7 +31,7 @@ func SearchAddressByCEP(ctx *gin.Context) {
 		return
 	}
 
-	address, err := searchCEP(request.CEP, ceps)
+	address, err := SearchAddressByCEP(request.CEP, ceps)
 	if err != nil {
 		if address == (Address{}) {
 			sendError(ctx, http.StatusNotFound, err.Error())
