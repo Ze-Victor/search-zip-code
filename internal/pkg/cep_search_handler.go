@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/Ze-Victor/search-zip-code/config"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,26 +17,32 @@ import (
 // @Accept json
 // @Produce json
 // @Param request body CEP true "Request body"
-// @Success 200 {object} sendSuccessResponse
-// @Failure 400 {object} sendErrorResponse
-// @Failure 404 {object} sendErrorResponse
-// @Failure 500 {object} sendErrorResponse
+// @Success 200 {object} SendSuccessResponse
+// @Failure 400 {object} SendErrorResponse
+// @Failure 404 {object} SendErrorResponse
+// @Failure 500 {object} SendErrorResponse
 // @Router /cep [get]
 func SearchCEPHandler(ctx *gin.Context) {
+
+	logger := config.GetLogger("cep_search_handler")
+
 	request := CEP{}
 	err := ctx.BindJSON(&request)
 	if err != nil {
+		logger.Errorf("Internal server error")
 		sendError(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	if err := request.Validate(); err != nil {
+		logger.Errorf("Validate error")
 		sendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
 
 	dir, err := os.Getwd()
 	if err != nil {
+		logger.Errorf("Internal server error")
 		sendError(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -44,6 +51,7 @@ func SearchCEPHandler(ctx *gin.Context) {
 
 	fileData, err := os.ReadFile(filePath)
 	if err != nil {
+		logger.Errorf("Internal server error")
 		sendError(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -52,6 +60,7 @@ func SearchCEPHandler(ctx *gin.Context) {
 
 	err = json.Unmarshal(fileData, &ceps)
 	if err != nil {
+		logger.Errorf("Internal server error")
 		sendError(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -59,8 +68,10 @@ func SearchCEPHandler(ctx *gin.Context) {
 	address, err := SearchAddressByCEP(request.CEP, ceps)
 	if err != nil {
 		if address == (Address{}) {
+			logger.Errorf("CEP not found")
 			sendError(ctx, http.StatusNotFound, err.Error())
 		} else {
+			logger.Errorf("Internal server error")
 			sendError(ctx, http.StatusInternalServerError, err.Error())
 		}
 		return
