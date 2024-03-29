@@ -1,8 +1,7 @@
 package main
 
 import (
-	"log"
-
+	"github.com/Ze-Victor/search-zip-code/config"
 	docs "github.com/Ze-Victor/search-zip-code/docs"
 	"github.com/Ze-Victor/search-zip-code/internal/pkg"
 	"github.com/gin-gonic/gin"
@@ -11,7 +10,11 @@ import (
 )
 
 func main() {
+
+	logger := config.GetLogger("main")
+
 	router := gin.Default()
+
 	basePath := "/api/v1"
 	docs.SwaggerInfo.BasePath = basePath
 	apiV1 := router.Group(basePath)
@@ -22,7 +25,7 @@ func main() {
 
 	err := router.Run(":8001")
 	if err != nil {
-		log.Fatalf("failed to start server: %v", err)
+		logger.Errorf("Failed to start server: %v", err)
 	}
 
 }

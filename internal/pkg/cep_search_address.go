@@ -2,9 +2,16 @@ package pkg
 
 import (
 	"fmt"
+
+	"github.com/Ze-Victor/search-zip-code/config"
 )
 
 func SearchAddressByCEP(cep string, ceps []Address) (Address, error) {
+
+	logger := config.GetLogger("cep_search")
+
+	logger.Debug("Searching for CEP...")
+
 	for _, c := range ceps {
 		if c.CEP == cep {
 			return c, nil
