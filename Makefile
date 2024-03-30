@@ -1,18 +1,21 @@
-.PHONY: default run build test docs clean
+.PHONY: default run build test lint docs clean
 
 APP_NAME=search-zip-code
 
 default: run
 
 run:
-	@go run cmd/api/main.go
+	@cd cmd/api && go run routes.go main.go
 
 build:
 	@go build -o $(APP_NAME) cmd/api/main.go
 
 test:
-	@cd internal/pkg && go test -v
-	@cd internal/util && go test -v
+	@cd internal/pkg/cep && go test -v
+	@cd internal/services && go test -v
+
+lint:
+	@golangci-lint run
 
 docs:
 	@swag init -g cmd/api/main.go

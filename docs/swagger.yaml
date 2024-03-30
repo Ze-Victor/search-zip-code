@@ -17,14 +17,33 @@ definitions:
       cep:
         type: string
     type: object
-  pkg.sendErrorResponse:
+  pkg.CredentialsAuth:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  pkg.SendErrorAuthResponse:
     properties:
       errorCode:
         type: string
       message:
         type: string
     type: object
-  pkg.sendSuccessResponse:
+  pkg.SendErrorCEPResponse:
+    properties:
+      errorCode:
+        type: string
+      message:
+        type: string
+    type: object
+  pkg.SendSuccessAuthResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  pkg.SendSuccessCEPResponse:
     properties:
       data:
         $ref: '#/definitions/pkg.Address'
@@ -34,6 +53,35 @@ definitions:
 info:
   contact: {}
 paths:
+  /auth:
+    post:
+      consumes:
+      - application/json
+      description: Generate token jwt for API authorization
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/pkg.CredentialsAuth'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pkg.SendSuccessAuthResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pkg.SendErrorAuthResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/pkg.SendErrorAuthResponse'
+      tags:
+      - Authorization Token
   /cep:
     get:
       consumes:
@@ -52,19 +100,23 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/pkg.sendSuccessResponse'
+            $ref: '#/definitions/pkg.SendSuccessCEPResponse'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/pkg.sendErrorResponse'
+            $ref: '#/definitions/pkg.SendErrorCEPResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/pkg.SendErrorAuthResponse'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/pkg.sendErrorResponse'
+            $ref: '#/definitions/pkg.SendErrorCEPResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/pkg.sendErrorResponse'
+            $ref: '#/definitions/pkg.SendErrorCEPResponse'
       tags:
       - CEP
 swagger: "2.0"

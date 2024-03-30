@@ -17,10 +17,11 @@ import (
 // @Accept json
 // @Produce json
 // @Param request body CEP true "Request body"
-// @Success 200 {object} SendSuccessResponse
-// @Failure 400 {object} SendErrorResponse
-// @Failure 404 {object} SendErrorResponse
-// @Failure 500 {object} SendErrorResponse
+// @Success 200 {object} SendSuccessCEPResponse
+// @Failure 400 {object} SendErrorCEPResponse
+// @Failure 401 {object} SendErrorAuthResponse
+// @Failure 404 {object} SendErrorCEPResponse
+// @Failure 500 {object} SendErrorCEPResponse
 // @Router /cep [get]
 func SearchCEPHandler(ctx *gin.Context) {
 
@@ -30,29 +31,29 @@ func SearchCEPHandler(ctx *gin.Context) {
 	err := ctx.BindJSON(&request)
 	if err != nil {
 		logger.Errorf("Internal server error")
-		sendError(ctx, http.StatusInternalServerError, err.Error())
+		sendErrorCEPResponse(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	if err := request.Validate(); err != nil {
 		logger.Errorf("Validate error")
-		sendError(ctx, http.StatusBadRequest, err.Error())
+		sendErrorCEPResponse(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
 
 	dir, err := os.Getwd()
 	if err != nil {
 		logger.Errorf("Internal server error")
-		sendError(ctx, http.StatusInternalServerError, err.Error())
+		sendErrorCEPResponse(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	filePath := filepath.Join(dir, "internal", "db", "ceps.json")
+	filePath := filepath.Join(dir, "../../internal", "db", "ceps.json")
 
 	fileData, err := os.ReadFile(filePath)
 	if err != nil {
 		logger.Errorf("Internal server error")
-		sendError(ctx, http.StatusInternalServerError, err.Error())
+		sendErrorCEPResponse(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
 
@@ -61,7 +62,7 @@ func SearchCEPHandler(ctx *gin.Context) {
 	err = json.Unmarshal(fileData, &ceps)
 	if err != nil {
 		logger.Errorf("Internal server error")
-		sendError(ctx, http.StatusInternalServerError, err.Error())
+		sendErrorCEPResponse(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
 
@@ -69,12 +70,12 @@ func SearchCEPHandler(ctx *gin.Context) {
 	if err != nil {
 		if address == (Address{}) {
 			logger.Errorf("CEP not found")
-			sendError(ctx, http.StatusNotFound, err.Error())
+			sendErrorCEPResponse(ctx, http.StatusNotFound, err.Error())
 		} else {
 			logger.Errorf("Internal server error")
-			sendError(ctx, http.StatusInternalServerError, err.Error())
+			sendErrorCEPResponse(ctx, http.StatusInternalServerError, err.Error())
 		}
 		return
 	}
-	sendSucess(ctx, address)
+	sendSucessCEPResponse(ctx, address)
 }
