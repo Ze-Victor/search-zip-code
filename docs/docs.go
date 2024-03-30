@@ -15,6 +15,51 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/auth": {
+            "post": {
+                "description": "Generate token jwt for API authorization",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authorization Token"
+                ],
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/pkg.CredentialsAuth"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/pkg.SendSuccessAuthResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/pkg.SendErrorAuthResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/pkg.SendErrorAuthResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/cep": {
             "get": {
                 "description": "Search Address by CEP",
@@ -42,25 +87,31 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/pkg.sendSuccessResponse"
+                            "$ref": "#/definitions/pkg.SendSuccessCEPResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pkg.sendErrorResponse"
+                            "$ref": "#/definitions/pkg.SendErrorCEPResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/pkg.SendErrorAuthResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/pkg.sendErrorResponse"
+                            "$ref": "#/definitions/pkg.SendErrorCEPResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/pkg.sendErrorResponse"
+                            "$ref": "#/definitions/pkg.SendErrorCEPResponse"
                         }
                     }
                 }
@@ -96,7 +147,18 @@ const docTemplate = `{
                 }
             }
         },
-        "pkg.sendErrorResponse": {
+        "pkg.CredentialsAuth": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "pkg.SendErrorAuthResponse": {
             "type": "object",
             "properties": {
                 "errorCode": {
@@ -107,7 +169,26 @@ const docTemplate = `{
                 }
             }
         },
-        "pkg.sendSuccessResponse": {
+        "pkg.SendErrorCEPResponse": {
+            "type": "object",
+            "properties": {
+                "errorCode": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "pkg.SendSuccessAuthResponse": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "pkg.SendSuccessCEPResponse": {
             "type": "object",
             "properties": {
                 "data": {

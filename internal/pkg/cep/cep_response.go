@@ -14,7 +14,7 @@ type Address struct {
 	State        string
 }
 
-func sendError(ctx *gin.Context, code int, msg string) {
+func sendErrorCEPResponse(ctx *gin.Context, code int, msg string) {
 	ctx.Header("Content-type", "application/json")
 	ctx.JSON(code, gin.H{
 		"message":   msg,
@@ -22,7 +22,7 @@ func sendError(ctx *gin.Context, code int, msg string) {
 	})
 }
 
-func sendSucess(ctx *gin.Context, address Address) {
+func sendSucessCEPResponse(ctx *gin.Context, address Address) {
 	ctx.Header("Content-type", "application/json")
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "Address located",
@@ -30,12 +30,12 @@ func sendSucess(ctx *gin.Context, address Address) {
 	})
 }
 
-type SendSuccessResponse struct {
+type SendSuccessCEPResponse struct {
 	Message string  `json:"message"`
 	Data    Address `json:"data"`
 }
 
-type SendErrorResponse struct {
+type SendErrorCEPResponse struct {
 	Message   string `json:"message"`
 	ErrorCode string `json:"errorCode"`
 }
