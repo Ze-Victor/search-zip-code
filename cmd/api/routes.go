@@ -2,6 +2,7 @@ package main
 
 import (
 	docs "github.com/Ze-Victor/search-zip-code/docs"
+	metrics "github.com/Ze-Victor/search-zip-code/internal/metrics"
 	auth "github.com/Ze-Victor/search-zip-code/internal/pkg/authorization"
 	cep "github.com/Ze-Victor/search-zip-code/internal/pkg/cep"
 	health "github.com/Ze-Victor/search-zip-code/internal/pkg/health"
@@ -22,9 +23,12 @@ func initializeRoutes(router *gin.Engine) {
 	apiV1.POST("/auth", auth.CreateTokenHandler)
 
 	//Routes Health
-	apiV1.GET("health", health.HealthAPI)
+	apiV1.GET("/health", health.CheckApplicationHealth)
 
 	//Routes Docs
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+
+	//Routes Metrics
+	metrics.RegisterMetrics(router)
 
 }
