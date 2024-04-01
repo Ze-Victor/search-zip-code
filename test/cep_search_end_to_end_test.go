@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"testing"
 
+	"github.com/Ze-Victor/search-zip-code/config"
 	pkg "github.com/Ze-Victor/search-zip-code/internal/pkg/authorization"
 )
 
@@ -43,7 +44,7 @@ func TestSearchCEPEndToEnd(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.Name, func(t *testing.T) {
 
-			req, err := http.NewRequest("GET", fmt.Sprintf("http://localhost:8001/api/v1/cep/%s", tc.CEP), nil)
+			req, err := http.NewRequest("GET", fmt.Sprintf("%s/cep/%s", config.Base_Path, tc.CEP), nil)
 			if err != nil {
 				t.Fatalf("failed to create request: %v", err)
 			}
@@ -69,7 +70,7 @@ func TestSearchCEPEndToEnd(t *testing.T) {
 }
 
 func getAuthToken(t *testing.T, requestBody []byte) (string, error) {
-	req, err := http.NewRequest("POST", "http://localhost:8001/api/v1/auth", bytes.NewBuffer([]byte(requestBody)))
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s/auth", config.Base_Path), bytes.NewBuffer([]byte(requestBody)))
 	if err != nil {
 		return "", err
 	}
