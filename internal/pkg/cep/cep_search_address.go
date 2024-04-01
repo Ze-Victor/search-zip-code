@@ -25,5 +25,5 @@ func SearchAddressByCEP(cep string, ceps []Address) (Address, error) {
 		}
 	}
 
-	return Address{}, fmt.Errorf("CEP %s not found", cep)
+	return Address{}, fmt.Errorf("CEP not found")
 }
