@@ -7,36 +7,30 @@ import (
 	"path/filepath"
 
 	"github.com/Ze-Victor/search-zip-code/config"
+	"github.com/Ze-Victor/search-zip-code/internal/services"
 	"github.com/gin-gonic/gin"
 )
 
 // @BasePath /api/v1
-// @Sumary Search CEP
+// @Summary Search CEP
 // @Description Search Address by CEP
 // @Tags CEP
-// @Accept json
 // @Produce json
-// @Param request body CEP true "Request body"
+// @Param Authorization header string true "Token"
+// @Param cep path string true "CEP"
 // @Success 200 {object} SendSuccessCEPResponse
 // @Failure 400 {object} SendErrorCEPResponse
 // @Failure 401 {object} SendErrorAuthResponse
 // @Failure 404 {object} SendErrorCEPResponse
 // @Failure 500 {object} SendErrorCEPResponse
-// @Router /cep [get]
+// @Router /cep/{cep} [get]
 func SearchCEPHandler(ctx *gin.Context) {
-
 	logger := config.GetLogger("cep_search_handler")
 
-	request := CEP{}
-	err := ctx.BindJSON(&request)
-	if err != nil {
-		logger.Errorf("Internal server error")
-		sendErrorCEPResponse(ctx, http.StatusInternalServerError, err.Error())
-		return
-	}
+	cep := ctx.Param("cep")
 
-	if err := request.Validate(); err != nil {
-		logger.Errorf("Validate error")
+	if err := services.ValidateCEP(cep); err != nil {
+		logger.Errorf("Invalid CEP")
 		sendErrorCEPResponse(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
@@ -66,7 +60,7 @@ func SearchCEPHandler(ctx *gin.Context) {
 		return
 	}
 
-	address, err := SearchAddressByCEP(request.CEP, ceps)
+	address, err := SearchAddressByCEP(cep, ceps)
 	if err != nil {
 		if address == (Address{}) {
 			logger.Errorf("CEP not found")

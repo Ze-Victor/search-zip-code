@@ -12,11 +12,6 @@ definitions:
       street:
         type: string
     type: object
-  pkg.CEP:
-    properties:
-      cep:
-        type: string
-    type: object
   pkg.CredentialsAuth:
     properties:
       email:
@@ -82,18 +77,20 @@ paths:
             $ref: '#/definitions/pkg.SendErrorAuthResponse'
       tags:
       - Authorization Token
-  /cep:
+  /cep/{cep}:
     get:
-      consumes:
-      - application/json
       description: Search Address by CEP
       parameters:
-      - description: Request body
-        in: body
-        name: request
+      - description: Token
+        in: header
+        name: Authorization
         required: true
-        schema:
-          $ref: '#/definitions/pkg.CEP'
+        type: string
+      - description: CEP
+        in: path
+        name: cep
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -117,6 +114,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/pkg.SendErrorCEPResponse'
+      summary: Search CEP
       tags:
       - CEP
 swagger: "2.0"
