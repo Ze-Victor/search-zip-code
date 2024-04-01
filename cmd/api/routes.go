@@ -15,7 +15,7 @@ func initializeRoutes(router *gin.Engine) {
 	apiV1 := router.Group(basePath)
 
 	//Routes CEP
-	apiV1.GET("/cep", auth.AuthMiddleware(), pkg.SearchCEPHandler)
+	apiV1.GET("/cep/:cep", auth.AuthMiddleware(), pkg.SearchCEPHandler)
 
 	//Routes Auth
 	apiV1.POST("/auth", auth.CreateTokenHandler)

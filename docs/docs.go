@@ -60,27 +60,30 @@ const docTemplate = `{
                 }
             }
         },
-        "/cep": {
+        "/cep/{cep}": {
             "get": {
                 "description": "Search Address by CEP",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "CEP"
                 ],
+                "summary": "Search CEP",
                 "parameters": [
                     {
-                        "description": "Request body",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/pkg.CEP"
-                        }
+                        "type": "string",
+                        "description": "Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "CEP",
+                        "name": "cep",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -135,14 +138,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "street": {
-                    "type": "string"
-                }
-            }
-        },
-        "pkg.CEP": {
-            "type": "object",
-            "properties": {
-                "cep": {
                     "type": "string"
                 }
             }
