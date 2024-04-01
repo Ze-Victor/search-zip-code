@@ -10,13 +10,6 @@ import (
 	"github.com/shirou/gopsutil/mem"
 )
 
-// @BasePath /api/v1
-// @Sumary Health API
-// @Description Verify API health
-// @Produce json
-// @Tags Health
-// @Success 200 {object} SendSuccessAuthResponse
-// @Router /health [get]
 func CheckApplicationHealth(c *gin.Context) {
 
 	logger := config.GetLogger("Health")
