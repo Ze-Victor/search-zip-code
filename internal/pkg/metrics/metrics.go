@@ -21,5 +21,5 @@ func init() {
 }
 
 func RegisterMetrics(router *gin.Engine) {
-	router.GET("/metrics", gin.WrapH(promhttp.Handler()))
+	router.GET("api/v1/metrics", gin.WrapH(promhttp.Handler()))
 }
