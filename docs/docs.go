@@ -119,6 +119,22 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/health": {
+            "get": {
+                "description": "Verify API health",
+                "tags": [
+                    "Health"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/pkg.SendSuccessAuthResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {

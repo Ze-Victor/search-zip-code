@@ -3,7 +3,8 @@ package main
 import (
 	docs "github.com/Ze-Victor/search-zip-code/docs"
 	auth "github.com/Ze-Victor/search-zip-code/internal/pkg/authorization"
-	pkg "github.com/Ze-Victor/search-zip-code/internal/pkg/cep"
+	cep "github.com/Ze-Victor/search-zip-code/internal/pkg/cep"
+	health "github.com/Ze-Victor/search-zip-code/internal/pkg/health"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -15,11 +16,15 @@ func initializeRoutes(router *gin.Engine) {
 	apiV1 := router.Group(basePath)
 
 	//Routes CEP
-	apiV1.GET("/cep/:cep", auth.AuthMiddleware(), pkg.SearchCEPHandler)
+	apiV1.GET("/cep/:cep", auth.AuthMiddleware(), cep.SearchCEPHandler)
 
 	//Routes Auth
 	apiV1.POST("/auth", auth.CreateTokenHandler)
 
+	//Routes Health
+	apiV1.GET("health", health.HealthAPI)
+
 	//Routes Docs
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+
 }

@@ -117,4 +117,14 @@ paths:
       summary: Search CEP
       tags:
       - CEP
+  /health:
+    get:
+      description: Verify API health
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pkg.SendSuccessAuthResponse'
+      tags:
+      - Health
 swagger: "2.0"
