@@ -137,6 +137,7 @@ Documentation review._
 
 - Endpoint for application health.
 - Endpoint for application metrics.
+- Rewriting test end to end
 - README Rewrite
 - Code Review
 

@@ -136,6 +136,7 @@ Revisão de documentação._
 
 - Endpoint para saúde da aplicação
 - Endpoint para métricas da aplicação
+- Reescrevendo teste de ponta a ponta
 - Reescrita do README
 - Revisão de código
 
