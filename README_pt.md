@@ -140,6 +140,14 @@ Revisão de documentação._
 - Reescrita do README
 - Revisão de código
 
+### Dia 06:
+
+- Conexão com banco de dados (SQLite)
+- Refatoração de código
+- Revisão de código
+- Revisão de testes
+- Revisão de documentação
+
 ## Resposta da questão 02:
 
 Quando digitamos um endereço (http://www.netshoes.com.br) no navegador, ele começa um processo complexo. Primeiro ele precisa saber onde aquele endereço tá hospedado, ou seja, qual o domínio dele. Para isso, ele pede ajuda ao DNS, que funciona como uma lista telefônica, ou seja, um servidor de domínios. Esse servidor de domínios resolve o endereço mandado pelo servidor e retorna  um IP que será usado pelo navegador para fazer a comunicação cliente-servidor.

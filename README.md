@@ -141,6 +141,14 @@ Documentation review._
 - README Rewrite
 - Code Review
 
+### Dia 06:
+
+- Database Connection (SQLite)
+- Refactoring of Code
+- Code Review
+- Test Review
+- Documentation Review
+
 ## Answer to Question 02:
 
 When we type an address (http://www.netshoes.com.br) in the browser, it starts a complex process. First, it needs to know where that address is hosted, i.e., what its domain is. To do this, it asks DNS for help, which works like a phone book, i.e., a domain server. This domain server resolves the address sent by the server and returns an IP that will be used by the browser to communicate client-server.
