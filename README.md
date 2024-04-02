@@ -68,6 +68,18 @@ End-to-end testing requires API initiation. To run these tests, start the server
     $ go test -v
 ```
 
+## Health Endpoint
+This endpoint can be accessed to check the health status of the system. It returns an HTTP status 200 if the system is healthy and an HTTP status 500 if the system is in an unhealthy state. Access:
+
+- http://localhost:8001/api/v1/health
+
+
+## Metrics Endpoint
+This endpoint provides metrics about the system, such as CPU and memory usage. The metrics are returned in a specific format suitable for monitoring and analysis. Access:
+
+- http://localhost:8001/api/v1/metrics
+
+
 ## Justification for Technology Choice
 
 I chose to use Go as my main technology due to its widespread adoption by the team I am seeking a position with, as well as my familiarity with the language. Additionally, Go offers a variety of significant benefits, including its coherence and efficiency in handling concurrency, fast compilation, static typing, simplicity and clarity in syntax, as well as its runtime efficiency.
