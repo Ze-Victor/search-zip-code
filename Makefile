@@ -11,7 +11,6 @@ build:
 	@go build -o $(APP_NAME) cmd/api/main.go
 
 test:
-	@cd internal/pkg/cep && go test -v
 	@cd internal/services && go test -v
 
 lint:

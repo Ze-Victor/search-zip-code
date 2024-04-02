@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/Ze-Victor/search-zip-code/config"
-	"github.com/Ze-Victor/search-zip-code/internal/schemas"
 	"github.com/Ze-Victor/search-zip-code/internal/services"
 	"github.com/gin-gonic/gin"
 )
@@ -33,25 +32,12 @@ func SearchCEPHandler(ctx *gin.Context) {
 		return
 	}
 
-	address := schemas.Address{}
-
-	adr := config.Db.First(&address, cep)
-
-	if adr.RowsAffected == 0 {
-		adressExternal := CEPSearchAddressExternal(cep)
-
-		if adressExternal.CEP == "" {
-			logger.Errorf("CEP not found")
-			sendErrorCEPResponse(ctx, http.StatusNotFound, "CEP not found")
-			return
-		}
-		if err := config.Db.Create(&adressExternal).Error; err != nil {
-			logger.Errorf("error searching CEP: %v", err.Error())
-			sendErrorCEPResponse(ctx, http.StatusInternalServerError, err.Error())
-			return
-		}
-		sendSucessCEPResponse(ctx, adressExternal)
+	address, err := SearchAddressByCEP(ctx, cep)
+	if err != nil {
+		logger.Errorf("Error searching for CEP: %v", err)
+		sendErrorCEPResponse(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
+
 	sendSucessCEPResponse(ctx, address)
 }
