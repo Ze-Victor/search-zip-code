@@ -1,10 +1,7 @@
 package pkg
 
 import (
-	"encoding/json"
 	"net/http"
-	"os"
-	"path/filepath"
 
 	"github.com/Ze-Victor/search-zip-code/config"
 	"github.com/Ze-Victor/search-zip-code/internal/services"
@@ -35,41 +32,12 @@ func SearchCEPHandler(ctx *gin.Context) {
 		return
 	}
 
-	dir, err := os.Getwd()
+	address, err := SearchAddressByCEP(ctx, cep)
 	if err != nil {
-		logger.Errorf("Internal server error")
+		logger.Errorf("Error searching for CEP: %v", err)
 		sendErrorCEPResponse(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	filePath := filepath.Join(dir, "../../internal", "db", "ceps.json")
-
-	fileData, err := os.ReadFile(filePath)
-	if err != nil {
-		logger.Errorf("Internal server error")
-		sendErrorCEPResponse(ctx, http.StatusInternalServerError, err.Error())
-		return
-	}
-
-	var ceps []Address
-
-	err = json.Unmarshal(fileData, &ceps)
-	if err != nil {
-		logger.Errorf("Internal server error")
-		sendErrorCEPResponse(ctx, http.StatusInternalServerError, err.Error())
-		return
-	}
-
-	address, err := SearchAddressByCEP(cep, ceps)
-	if err != nil {
-		if address == (Address{}) {
-			logger.Errorf("CEP not found")
-			sendErrorCEPResponse(ctx, http.StatusNotFound, err.Error())
-		} else {
-			logger.Errorf("Internal server error")
-			sendErrorCEPResponse(ctx, http.StatusInternalServerError, err.Error())
-		}
-		return
-	}
 	sendSucessCEPResponse(ctx, address)
 }
