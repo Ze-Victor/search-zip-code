@@ -122,26 +122,6 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "pkg.Address": {
-            "type": "object",
-            "properties": {
-                "cep": {
-                    "type": "string"
-                },
-                "city": {
-                    "type": "string"
-                },
-                "neighborhood": {
-                    "type": "string"
-                },
-                "state": {
-                    "type": "string"
-                },
-                "street": {
-                    "type": "string"
-                }
-            }
-        },
         "pkg.CredentialsAuth": {
             "type": "object",
             "properties": {
@@ -187,9 +167,29 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "data": {
-                    "$ref": "#/definitions/pkg.Address"
+                    "$ref": "#/definitions/schemas.Address"
                 },
                 "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "schemas.Address": {
+            "type": "object",
+            "properties": {
+                "cep": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "neighborhood": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "street": {
                     "type": "string"
                 }
             }

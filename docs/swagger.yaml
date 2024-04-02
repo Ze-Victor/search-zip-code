@@ -1,17 +1,4 @@
 definitions:
-  pkg.Address:
-    properties:
-      cep:
-        type: string
-      city:
-        type: string
-      neighborhood:
-        type: string
-      state:
-        type: string
-      street:
-        type: string
-    type: object
   pkg.CredentialsAuth:
     properties:
       email:
@@ -41,8 +28,21 @@ definitions:
   pkg.SendSuccessCEPResponse:
     properties:
       data:
-        $ref: '#/definitions/pkg.Address'
+        $ref: '#/definitions/schemas.Address'
       message:
+        type: string
+    type: object
+  schemas.Address:
+    properties:
+      cep:
+        type: string
+      city:
+        type: string
+      neighborhood:
+        type: string
+      state:
+        type: string
+      street:
         type: string
     type: object
 info:
