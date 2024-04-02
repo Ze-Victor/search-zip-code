@@ -69,6 +69,18 @@ Os testes de ponta a ponta requerem a inicialização da API. Para executar esse
     $ go test -v
 ```
 
+## Endpoint de saúde
+Este endpoint pode ser acessado para verificar o estado de saúde do sistema. Retorna um status HTTP 200 se o sistema estiver saudável e um status HTTP 500 se o sistema estiver em um estado não saudável. Acesse:
+
+- http://localhost:8001/api/v1/health
+
+
+## Endpoint de métricas
+Este endpoint fornece métricas sobre o sistema, como uso de CPU e memória. As métricas são retornadas em um formato específico, adequado para monitoramento e análise. Acesse:
+
+- http://localhost:8001/api/v1/metrics
+
+
 ## Justificativa para escolha da tecnologia
 
 Escolhi utilizar Go como minha principal tecnologia devido ao fato de ser amplamente adotada pela equipe para a qual estou buscando uma vaga, além da minha familiaridade com a linguagem. Ademais, Go oferece uma série de benefícios significativos, incluindo sua coerência e eficiência no tratamento de concorrência, compilação rápida, tipagem estática, simplicidade e clareza na sintaxe, bem como sua eficiência em tempo de execução.
