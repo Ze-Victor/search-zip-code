@@ -94,6 +94,52 @@ My basic structure was as follows:
 
 With this structure, I sought simplicity, clarity, flexibility, and the ability to clearly separate responsibilities within the project. This can help facilitate code development, testing, and maintenance.
 
+## Development Strategy
+
+### Configuration and Change Management Planning
+
+- I created the main branch, which will be the final branch of the project, and started a Go project in it.
+
+- Next, I set up the development environment to receive new features.
+
+- From the develop branch, features were created, which, after completion and testing, were integrated into the development environment and finally into the main branch.
+
+- This flow helps maintain development organization and facilitates task division.
+
+### Project Schedule
+
+#### Day 1:
+- Validation of request and ZIP code.
+- Retrieval of ZIP code from simulated file.
+- Replacement of numbers with zeros until finding the ZIP code.
+- Code review.
+
+#### Day 2:
+- Unit tests and end-to-end tests.
+- Project structuring for better adaptation to development.
+- Code review.
+
+#### Day 3:
+- Code quality with static code analysis (linter).
+- Makefile to automate compilation and execution tasks.
+- Documentation with Swagger.
+- Logger structuring.
+
+#### Day 4:
+- API authorization.
+- API design.
+
+_Note: The challenge file mentioned receiving and returning JSON. However, the task was to SEARCH for an address through a ZIP code, so it made sense to be a GET request. However, Getters do not take a body in the request. Therefore, I performed the search by sending the ZIP code as a parameter.
+Code review.
+Documentation review._
+
+### Day 5:
+
+- Endpoint for application health.
+- Endpoint for application metrics.
+- README Rewrite
+- Code Review
+
 ## Answer to Question 02:
 
 When we type an address (http://www.netshoes.com.br) in the browser, it starts a complex process. First, it needs to know where that address is hosted, i.e., what its domain is. To do this, it asks DNS for help, which works like a phone book, i.e., a domain server. This domain server resolves the address sent by the server and returns an IP that will be used by the browser to communicate client-server.

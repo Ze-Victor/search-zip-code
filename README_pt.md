@@ -95,6 +95,50 @@ Minha estrutura básica foi a seguinte:
 
 Com essa estrutura, busquei simplicidade, clareza, flexibilidade e a capacidade de separar claramente as responsabilidades dentro do projeto. Isso pode ajudar a facilitar o desenvolvimento, teste e manutenção do código.
 
+## Estratégia para desenvolvimento
+
+### Planejamento de Gerência de Configuração e Mudanças
+
+- Criei a branch main, que será a branch final do projeto, e iniciei nela um projeto Go.
+
+- Em seguida, criei o ambiente de desenvolvimento para receber novas funcionalidades.
+
+- A partir da branch develop, foram criadas as features, que, após finalizadas e testadas, foram integradas ao ambiente de desenvolvimento e, por fim, à branch principal.
+
+- Esse fluxo ajuda a manter a organização do desenvolvimento e facilita a divisão de tarefas.
+
+### Calendário do Projeto
+
+#### Dia 1:
+- Validação da requisição e do CEP.
+- Busca do CEP no arquivo simulado.
+- Substituição dos números por zeros até encontrar o CEP.
+- Revisão de código.
+#### Dia 02:
+- Testes unitários e testes de ponta a ponta.
+- Estruturação do projeto para melhor se adequar ao desenvolvimento.
+- Revisão de códigos.
+#### Dia 03:
+- Qualidade do código com análise de código estático (linter).
+- Makefile para automatizar tarefas de compilação e execução.
+- Documentação com Swagger.
+- Estruturação de loggers.
+#### Dia 04: 
+- Autorização de API.
+- Design de API.
+
+
+_Observação: O arquivo do desafio mencionava receber e retornar JSON. No entanto, a tarefa era BUSCAR um endereço através de um CEP, então fazia sentido ser uma requisição GET. No entanto, os Getters não levam um corpo na requisição. Portanto, executei a busca enviando o CEP como um parâmetro.
+Revisão de código.
+Revisão de documentação._
+
+### Dia 05:
+
+- Endpoint para saúde da aplicação
+- Endpoint para métricas da aplicação
+- Reescrita do README
+- Revisão de código
+
 ## Resposta da questão 02:
 
 Quando digitamos um endereço (http://www.netshoes.com.br) no navegador, ele começa um processo complexo. Primeiro ele precisa saber onde aquele endereço tá hospedado, ou seja, qual o domínio dele. Para isso, ele pede ajuda ao DNS, que funciona como uma lista telefônica, ou seja, um servidor de domínios. Esse servidor de domínios resolve o endereço mandado pelo servidor e retorna  um IP que será usado pelo navegador para fazer a comunicação cliente-servidor.
