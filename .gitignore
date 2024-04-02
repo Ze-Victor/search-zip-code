@@ -9,3 +9,6 @@
 
 #Coverage
 *.out
+
+#db
+*.db

@@ -4,9 +4,10 @@ import (
 	"fmt"
 
 	"github.com/Ze-Victor/search-zip-code/config"
+	"github.com/Ze-Victor/search-zip-code/internal/schemas"
 )
 
-func SearchAddressByCEP(cep string, ceps []Address) (Address, error) {
+func SearchAddressByCEP(cep string, ceps []schemas.Address) (schemas.Address, error) {
 
 	logger := config.GetLogger("cep_search")
 
@@ -25,5 +26,5 @@ func SearchAddressByCEP(cep string, ceps []Address) (Address, error) {
 		}
 	}
 
-	return Address{}, fmt.Errorf("CEP not found")
+	return schemas.Address{}, fmt.Errorf("CEP not found")
 }

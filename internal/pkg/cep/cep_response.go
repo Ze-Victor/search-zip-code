@@ -3,16 +3,9 @@ package pkg
 import (
 	"net/http"
 
+	"github.com/Ze-Victor/search-zip-code/internal/schemas"
 	"github.com/gin-gonic/gin"
 )
-
-type Address struct {
-	CEP          string
-	Street       string
-	Neighborhood string
-	City         string
-	State        string
-}
 
 func sendErrorCEPResponse(ctx *gin.Context, code int, msg string) {
 	ctx.Header("Content-type", "application/json")
@@ -22,7 +15,7 @@ func sendErrorCEPResponse(ctx *gin.Context, code int, msg string) {
 	})
 }
 
-func sendSucessCEPResponse(ctx *gin.Context, address Address) {
+func sendSucessCEPResponse(ctx *gin.Context, address schemas.Address) {
 	ctx.Header("Content-type", "application/json")
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "Address located",
@@ -31,8 +24,8 @@ func sendSucessCEPResponse(ctx *gin.Context, address Address) {
 }
 
 type SendSuccessCEPResponse struct {
-	Message string  `json:"message"`
-	Data    Address `json:"data"`
+	Message string          `json:"message"`
+	Data    schemas.Address `json:"data"`
 }
 
 type SendErrorCEPResponse struct {
